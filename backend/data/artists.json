@@ -1,0 +1,321 @@
+{
+  "artists": [
+    {
+      "id": 1,
+      "name": "Albert King",
+      "birthdate": "25/04/1923",
+      "activeSince": 1949,
+      "genres": ["Blues", "Rhythm and Blues"],
+      "labels": ["Bobbi", "King", "Stax", "Atlantic"],
+      "website": "https://en.wikipedia.org/wiki/Albert_King",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Albert_King_1978.jpg/220px-Albert_King_1978.jpg",
+      "shortDescription": "Albert Nelson (April 25, 1923 - December 21, 1992), known by his stage name Albert King, was an American guitarist and singer who is often regarded as one of the greatest and most influential blues guitarists of all time."
+    },
+
+    {
+      "id": 2,
+      "name": "B.B. King",
+      "birthdate": "16/09/1925",
+      "activeSince": 1942,
+      "genres": ["Electric Blues", "Rhythm and Blues", "Rock and Roll", "Soul", "Gospel"],
+      "labels": ["RPM", "Crown", "Kent", "ABC", "BluesWay", "MCA", "Geffen"],
+      "website": "https://www.bbking.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/B.B._King_07_%28cropped%29.jpg/220px-B.B._King_07_%28cropped%29.jpg",
+      "shortDescription": "Riley B. King (September 16, 1925 - May 14, 2015), known professionally as B.B. King, was an American blues guitarist, singer, songwriter, and record producer. He introduced a sophisticated style of soloing based on fluid string bending, shimmering vibrato, and staccato picking that influenced many later blues electric guitar players."
+    },
+
+    {
+      "id": 3,
+      "name": "Cat Stevens",
+      "birthdate": "21/07/1948",
+      "activeSince": 1965,
+      "genres": ["Folk", "Rock", "Pop", "Islamic"],
+      "labels": ["Deram", "Island", "A&M", "Mountain of Light", "Jamal", "Ya", "Atlantic", "Legacy"],
+      "website": "https://catstevens.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Cat_Stevens_Glastonbury_2023.jpg/220px-Cat_Stevens_Glastonbury_2023.jpg",
+      "shortDescription": "Yusuf Islam (born Steven Demetre Georgiou; 21 July 1948), commonly known by his stage names Cat Stevens, Yusuf, and Yusuf / Cat Stevens, is an English singer-songwriter and musician. He has sold more than 100 million records and has more than two billion streams."
+    },
+
+    {
+      "id": 4,
+      "name": "David Bowie",
+      "birthdate": "08/01/1947",
+      "activeSince": 1962,
+      "genres": ["Art Rock", "Glam Rock", "Pop", "Electronic"],
+      "labels": [
+        "ISO",
+        "RCA",
+        "Virgin",
+        "EMI",
+        "Columbia",
+        "Deram",
+        "Mercury",
+        "BMG",
+        "Pye",
+        "Vocalion",
+        "Parlophone",
+        "Ryko"
+      ],
+      "website": "https://www.davidbowie.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/David-Bowie_Chicago_2002-08-08_photoby_Adam-Bielawski-cropped.jpg/220px-David-Bowie_Chicago_2002-08-08_photoby_Adam-Bielawski-cropped.jpg",
+      "shortDescription": "David Robert Jones (8 January 1947 - 10 January 2016), known professionally as David Bowie, was an English singer, songwriter, musician, and actor. A leading figure in the music industry, he is regarded as one of the most influential musicians of the 20th century."
+    },
+
+    {
+      "id": 5,
+      "name": "Eazy-E",
+      "birthdate": "26/03/1995",
+      "activeSince": 1987,
+      "genres": ["Hip Hop", "Gangsta Rap"],
+      "labels": ["Ruthless", "Priority", "Relativity", "Epic"],
+      "website": "https://en.wikipedia.org/wiki/Eazy-E",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Eazy-E.jpg/200px-Eazy-E.jpg",
+      "shortDescription": "Eric Lynn Wright (September 7, 1964 - March 26, 1995), known professionally as Eazy-E, was an American rapper who propelled West Coast rap and gangsta rap by leading the group N.W.A and its label, Ruthless Records. He is often referred to as the 'Godfather of Gangsta Rap'."
+    },
+
+    {
+      "id": 6,
+      "name": "Freddie Mercury",
+      "birthdate": "05/09/1946",
+      "activeSince": 1969,
+      "genres": ["Rock"],
+      "labels": ["Columbia", "Polydor", "EMI", "Parlophone", "Hollywood"],
+      "website": "http://www.freddiemercury.com/en/biography",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg/220px-Freddie_Mercury_performing_in_New_Haven%2C_CT%2C_November_1977.jpg",
+      "shortDescription": "Freddie Mercury (born Farrokh Bulsara; 5 September 1946 - 24 November 1991) was a British singer and songwriter who achieved worldwide fame as the lead vocalist and pianist of the rock band Queen."
+    },
+
+    {
+      "id": 7,
+      "name": "Grace Jones",
+      "birthdate": "19/05/1948",
+      "activeSince": 1973,
+      "genres": ["New Wave", "Art Pop", "Disco", "R&B", "Reggae"],
+      "labels": ["Island", "Manhattan", "Capitol", "Wall of Sound/PIAS"],
+      "website": "www.gracejones.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Grace_Jones_at_Carriageworks_%28Vivid%29_-_1st_June_2015_08.jpg/220px-Grace_Jones_at_Carriageworks_%28Vivid%29_-_1st_June_2015_08.jpg",
+      "shortDescription": "Grace Beverly Jones OJ (born 19 May 1948) is a Jamaican-American model, singer and actress. Born in Jamaica, she and her family moved to Syracuse, New York, when she was a teenager."
+    },
+
+    {
+      "id": 8,
+      "name": "Halsey",
+      "birthdate": "29/09/1994",
+      "activeSince": 2012,
+      "genres": ["Pop", "Electronic", "Alternative", "Rock"],
+      "labels": ["Astralwerks", "Capitol", "Columbia"],
+      "website": "iamhalsey.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Halsey_September_2019.jpg/220px-Halsey_September_2019.jpg",
+      "shortDescription": "Ashley Nicolette Frangipane (born September 29, 1994), known professionally as Halsey, is an American singer and songwriter. Halsey was born and raised in New Jersey. Gaining attention from self-released music on social media platforms, she was signed by Astralwerks in 2014 and released her debut EP, Room 93, later that year."
+    },
+
+    {
+      "id": 9,
+      "name": "Iggy Pop",
+      "birthdate": "21/04/1947",
+      "activeSince": 1960,
+      "genres": ["Rock", "Punk Rock", "Proto-Punk", "Hard Rock", "Garage Rock"],
+      "labels": ["Caroline International", "Loma", "Vista", "Virgin", "RCA", "Elektra", "A&M"],
+      "website": "https://iggypop.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/IggyChesterRocks.jpg/220px-IggyChesterRocks.jpg",
+      "shortDescription": "James Newell Osterberg Jr. (born April 21, 1947), known professionally as Iggy Pop, is an American singer, musician, songwriter, actor, and radio broadcaster. He was the vocalist and lyricist of proto-punk band The Stooges, who were formed in 1967 and have disbanded and reunited many times since."
+    },
+
+    {
+      "id": 10,
+      "name": "Jack Johnson",
+      "birthdate": "18/05/1975",
+      "activeSince": 1992,
+      "genres": ["Rock", "Surf Rock", "Soft Rock", "Folk Rock", "Folk Pop"],
+      "labels": ["Enjoy", "Universal", "Brushfire"],
+      "website": "https://jackjohnsonmusic.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Jack_Johnson_2014.jpg/220px-Jack_Johnson_2014.jpg",
+      "shortDescription": "Jack Hody Johnson (born May 18, 1975) is an American singer-songwriter, primarily in the soft rock and acoustic pop genres. Johnson has reached number one on the Billboard 200 chart with his albums Sing-A-Longs and Lullabies for the Film Curious George in 2006, Sleep Through the Static in 2008, To the Sea in 2010 and From Here to Now to You in 2013. His album In Between Dreams peaked at number two on the chart in 2005 and again in 2013."
+    },
+
+    {
+      "id": 11,
+      "name": "Kendrick Lamar",
+      "birthdate": "17/06/1987",
+      "activeSince": 2003,
+      "genres": ["Hip Hop", "Progressive Rap", "West Coast Hip Hop", "Conscious Hip Hop", "Jazz Rap"],
+      "labels": ["TDE", "Aftermath", "Interscope", "PGLang"],
+      "website": "oklama.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Pulitzer2018-portraits-kendrick-lamar.jpg/220px-Pulitzer2018-portraits-kendrick-lamar.jpg",
+      "shortDescription": "Kendrick Lamar Duckworth (born June 17, 1987) is an American rapper and songwriter. Known for his progressive musical styles and socially conscious songwriting, he is often considered one of the most influential hip hop artists of his generation."
+    },
+
+    {
+      "id": 12,
+      "name": "Lenny Kravitz",
+      "birthdate": "26/05/1964",
+      "activeSince": 1989,
+      "genres": ["Rock", "Neo-psychedelia", "Progressive Soul"],
+      "labels": ["Virgin", "EMI", "RoadRunner", "Kobalt", "Loud & Proud", "BMG"],
+      "website": "https://www.lennykravitz.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Lenny_Kravitz_by_Gage_Skidmore.jpg/220px-Lenny_Kravitz_by_Gage_Skidmore.jpg",
+      "shortDescription": "Leonard Albert Kravitz (born May 26, 1964) is an American singer-songwriter and actor. His style incorporates elements of rock, blues, soul, R&B, funk, jazz, reggae, hard rock, psychedelic, pop and folk. He is the son of actress Roxie Roker, a cousin of television anchor Al Roker, and the father of actress Zoë Kravitz."
+    },
+
+    {
+      "id": 13,
+      "name": "Mary J. Blige",
+      "birthdate": "11/01/1971",
+      "activeSince": 1988,
+      "genres": ["R&B", "New Jack Swing", "Hip Hop", "Hip Hop Soul"],
+      "labels": [
+        "Mary Jane",
+        "300",
+        "Atlantic",
+        "Republic",
+        "Capitol",
+        "Matriarch",
+        "Geffen",
+        "Verve",
+        "Uptown",
+        "MCA"
+      ],
+      "website": "https://www.maryjblige.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Mary_J_Blige_in_2022.png/220px-Mary_J_Blige_in_2022.png",
+      "shortDescription": "Mary Jane Blige (born January 11, 1971) is an American singer, songwriter, and actress. Often referred to as the 'Queen of Hip-Hop Soul' and 'Queen of R&B', Blige has won nine Grammy Awards, a Primetime Emmy Award, four American Music Awards, twelve NAACP Image Awards, and twelve Billboard Music Awards, including the Billboard Icon Award. "
+    },
+
+    {
+      "id": 14,
+      "name": "Oscar Peterson",
+      "birthdate": "15/08/1925",
+      "activeSince": 1945,
+      "genres": ["Jazz", "Classical"],
+      "labels": ["RCA Victor", "Mercury", "MPS", "Pabio", "Telarc", "Verve"],
+      "website": "https://oscarpeterson.com/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Oscar_Peterson_-_1950.JPG/220px-Oscar_Peterson_-_1950.JPG",
+      "shortDescription": "Oscar Emmanuel Peterson (August 15, 1925 - December 23, 2007) was a Canadian jazz pianist and composer. Considered a virtuoso and one of the greatest jazz pianists of all time, Peterson released more than 200 recordings, won eight Grammy Awards, as well as a lifetime achievement award from the Recording Academy, and received numerous other awards and honours."
+    },
+
+    {
+      "id": 15,
+      "name": "PJ Harvey",
+      "birthdate": "09/10/1969",
+      "activeSince": 1988,
+      "genres": ["Alternative Rock", "Punk Blues", "Art Rock", "Indie Rock", "Folk Rock", "Avant Rock"],
+      "labels": ["Too Pure", "Indigo", "Island", "Partisan"],
+      "website": "pjharvey.net",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/PJ_Harvey_Heartland_Festival_2022.png/220px-PJ_Harvey_Heartland_Festival_2022.png",
+      "shortDescription": "Polly Jean Harvey MBE (born 9 October 1969) is an English singer-songwriter. Primarily known as a vocalist and guitarist, she is also proficient with a wide range of instruments."
+    },
+
+    {
+      "id": 16,
+      "name": "Quincy Jones",
+      "birthdate": "14/03/1933",
+      "activeSince": 1951,
+      "genres": [
+        "Rhythm and Blues",
+        "Soul",
+        "Funk",
+        "Big Band",
+        "Swing",
+        "Bossa Nova",
+        "Jazz",
+        "Hip Hop",
+        "Rock and Roll",
+        "Pop",
+        "Disco"
+      ],
+      "labels": ["Warner Bros", "Columbia", "Mercury", "A&M", "Qwest", "Epic", "ABC", "Interscope"],
+      "website": "quincyjones.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Quincy_Jones_May_2014.jpg/220px-Quincy_Jones_May_2014.jpg",
+      "shortDescription": "Quincy Delight Jones Jr. (born March 14, 1933) is an American record producer, songwriter, composer, arranger, and film and television producer. His career spans 72 years, with 80 Grammy Award nominations, 28 Grammys, and a Grammy Legend Award in 1992."
+    },
+
+    {
+      "id": 17,
+      "name": "Ray Charles",
+      "birthdate": "23/09/1930",
+      "activeSince": 1947,
+      "genres": ["R&B", "Soul", "Blues", "Gospel", "Country", "Jazz", "Rock and Roll"],
+      "labels": [
+        "Atlantic",
+        "ABC",
+        "Tangerine/ Crossover",
+        "Warner Bros",
+        "Swing Time",
+        "Concord",
+        "Columbia",
+        "Flashback"
+      ],
+      "website": "raycharles.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Ray_Charles_classic_piano_pose.jpg/220px-Ray_Charles_classic_piano_pose.jpg",
+      "shortDescription": "Ray Charles Robinson Sr. (September 23, 1930 - June 10, 2004) was an American singer, songwriter and pianist. He is regarded as one of the most iconic and influential singers in history, and was often referred to by contemporaries as 'The Genius'. Among friends and fellow musicians he preferred being called 'Brother Ray'. Charles was blinded during childhood, possibly due to glaucoma."
+    },
+
+    {
+      "id": 18,
+      "name": "Sam Smith",
+      "birthdate": "19/05/1992",
+      "activeSince": 2008,
+      "genres": ["Pop", "R&B", "Soul"],
+      "labels": ["Capitol"],
+      "website": "samsmithworld.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sam_Smith_Lollapalooza_2015-9_%28cropped%29.jpg/220px-Sam_Smith_Lollapalooza_2015-9_%28cropped%29.jpg",
+      "shortDescription": "Samuel Frederick Smith (born 19 May 1992) is an English singer and songwriter. In October 2012, they were featured on Disclosure's breakthrough single 'Latch', which peaked at number eleven on the UK Singles Chart. They were featured on Naughty Boy's 'La La La', which became a number one single in May 2013."
+    },
+
+    {
+      "id": 19,
+      "name": "Tim McGraw",
+      "birthdate": "01/05/1967",
+      "activeSince": 1990,
+      "genres": ["Country"],
+      "labels": ["Curb", "Big Machine", "Arista", "Nashville", "Columbia Nashville"],
+      "website": "timmcgraw.com",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Tim_McGraw_October_24_2015.jpg/220px-Tim_McGraw_October_24_2015.jpg",
+      "shortDescription": "Samuel Timothy McGraw (born May 1, 1967) is an American country singer, songwriter, record producer, and actor. He has released 16 studio albums (11 for Curb Records, four for Big Machine Records and one for Arista Nashville). 10 of those albums have reached number one on the Top Country Albums charts, with his 1994 breakthrough album Not a Moment Too Soon being the top country album of 1994."
+    },
+
+    {
+      "id": 20,
+      "name": "Vince Gill",
+      "birthdate": "12/04/1957",
+      "activeSince": "1975",
+      "genres": ["Country", "Country Pop", "Bluegrass", "Rock"],
+      "labels": ["RCA Nashville", "MCA", "MCA Nashville"],
+      "website": "https://www.vincegill.com/#/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Vince_Gill.png/220px-Vince_Gill.png",
+      "shortDescription": "Vincent Grant Gill (born April 12, 1957) is an American country music singer, songwriter and musician. He has achieved commercial success and fame both as frontman of the country rock band Pure Prairie League in the 1970s and as a solo artist beginning in 1983, where his talents as a vocalist and musician have placed him in high demand as a guest vocalist and a duet partner."
+    },
+
+    {
+      "id": 21,
+      "name": "Willie Nelson",
+      "birthdate": "29/04/1933",
+      "activeSince": 1956,
+      "genres": ["Progressive Country", "Outlaw Country", "Blues", "Jazz", "Gospel"],
+      "labels": [
+        "Liberty",
+        "RCA Victor",
+        "Atlantic",
+        "Columbia",
+        "Island",
+        "Justice Records",
+        "Lost Highway",
+        "Legacy Recordings"
+      ],
+      "website": "https://en.wikipedia.org/wiki/Willie_Nelson",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Willie_Nelson_at_Farm_Aid_2009_%28cropped%29.jpg/220px-Willie_Nelson_at_Farm_Aid_2009_%28cropped%29.jpg",
+      "shortDescription": "Willie Hugh Nelson (born April 29, 1933) is an American singer, songwriter, guitarist, activist, and actor. He was one of the main figures of the progressive and outlaw country subgenres that developed in the late 1960s as a reaction to the conservative restrictions of the Nashville sound. The critical success of his album Shotgun Willie (1973), combined with the critical and commercial success of Red Headed Stranger (1975) and Stardust (1978), made Nelson one of the most recognized artists in country music."
+    },
+
+    {
+      "id": 22,
+      "name": "Zucchero",
+      "birthdate": "25/09/1955",
+      "activeSince": 1970,
+      "genres": ["Blues", "Rock", "R&B", "Soul", "Gospel", "Funk", "Pop Rock", "Pop"],
+      "labels": ["Polydor", "Universal"],
+      "website": "www.zucchero.it",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/2023-07-08_066_KN_Sommerkonzerte_-_Zucchero_a.jpg/220px-2023-07-08_066_KN_Sommerkonzerte_-_Zucchero_a.jpg",
+      "shortDescription": "Adelmo Fornaciari (born 25 September 1955), more commonly known by his stage name Zucchero Fornaciari or simply Zucchero, is an Italian singer, musician and songwriter. His stage name is the Italian word for 'sugar', as his elementary teacher used to call him."
+    }
+  ]
+}

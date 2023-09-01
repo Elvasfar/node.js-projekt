@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Artist Library</title>
+  </head>
+  <body>
+    <header>
+      <h1>Artist App with node.js</h1>
+      <button id="btn-create-artist">Create New Artist</button>
+    </header>
+
+    <main>
+      <section class="tools-grid">
+        <label for="select-sort-by"
+          >Sort by:
+          <select id="select-sort-by">
+            <option value="" selected>Not selected</option>
+            <option value="name">Name</option>
+            <option value="activeSince">Active Since</option>
+            <option value="genre">Genre</option>
+          </select>
+        </label>
+        <div>
+          <label for="input-search">Search:</label>
+          <input type="search" id="input-search" placeholder="Search by name" />
+        </div>
+      </section>
+      <section id="artists" class="grid-container"></section>
+    </main>
+
+    <!-- dialog - add new artist -->
+    <dialog id="dialog-add-artist">
+      <h2>Add new artist</h2>
+      <form id="form-add-artist" method="dialog">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Type the artists name" />
+        <label for="birthdate">Birthdate:</label>
+        <input type="text" id="birthdate" name="birthdate" placeholder="Type the birthdate of the artist" />
+        <label for="activeSince">Active Since:</label>
+        <input type="number" id="activeSince" name="activeSince" placeholder="Type a year" />
+        <label for="genres">Genres:</label>
+        <input type="text" id="genre" name="genre" placeholder="Type the artists genres" />
+        <label for="labels">Labels:</label>
+        <input type="text" id="labels" name="labels" placeholder="Type the artists labels" />
+        <label for="website">Website:</label>
+        <input type="text" id="website" name="website" placeholder="Paste the artists website" />
+        <label for="image">Image:</label>
+        <input type="text" id="image" name="image" placeholder="Paste an image URL" />
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" placeholder="Type a short desription of the artist" />
+        <button>Add Artist</button>
+      </form>
+    </dialog>
+
+    <!-- dialog - update post -->
+    <dialog id="dialog-update-artist">
+      <h2>Update Artist</h2>
+      <form id="form-update-artist" method="dialog">
+        <label for="name-update">Name:</label>
+        <input type="text" id="name-update" name="name-update" placeholder="Type the artists name" />
+        <label for="birthdate-update">Birthdate:</label>
+        <input
+          type="text"
+          id="birthdate-update"
+          name="birthdate-update"
+          placeholder="Type the birthdate of the artist"
+        />
+        <label for="activeSince-update">Active Since:</label>
+        <input type="number" id="activeSince-update" name="activeSince-update" placeholder="Type a year" />
+        <label for="genres-update">Genres:</label>
+        <input type="text" id="genre-update" name="genre-update" placeholder="Type the artists genres" />
+        <label for="labels-update">Labels:</label>
+        <input type="text" id="labels-update" name="labels-update" placeholder="Type the artists labels" />
+        <label for="website-update">Website:</label>
+        <input type="text" id="website-update" name="website-update" placeholder="Paste the artists website" />
+        <label for="image-update">Image:</label>
+        <input type="text" id="image-update" name="image-update" placeholder="Paste an image URL" />
+        <label for="description-update">Description:</label>
+        <input
+          type="text"
+          id="description-update"
+          name="description-update"
+          placeholder="Type a short desription of the artist"
+        />
+        <button>Update Artist</button>
+      </form>
+    </dialog>
+
+    <!-- dialog - delete post -->
+    <dialog id="dialog-delete-artist">
+      <h2>Do you want to delete artist?</h2>
+      <p id="dialog-delete-artist-name">Name of artist</p>
+      <form id="form-delete-artist" method="dialog">
+        <button type="button" class="btn-cancel">No</button>
+        <button>Yes</button>
+      </form>
+    </dialog>
+    <script src="artists.js"></script>
+  </body>
+</html>
