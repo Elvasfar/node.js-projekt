@@ -1,22 +1,22 @@
 "use strict";
 
-import { getPosts, createPost, updatePost, deletePost } from "./rest-service.js";
+import { getArtists, addArtist, updateArtist, deleteArtist } from "./rest-service.js";
 
-import { compareBody, compareTitle, prepareData } from "./helpers.js";
+import { compareName, compareGenres, prepareData } from "./helpers.js";
 
-let posts;
+let artists;
 
 window.addEventListener("load", initApp);
 
 function initApp() {
-  updatePostsGrid(); // update the grid of posts: get and show all posts
+  updateArtistsGrid(); // update the grid of posts: get and show all posts
 
   // event listener
-  document.querySelector("#btn-create-post").addEventListener("click", showCreatePostDialog);
-  document.querySelector("#form-create-post").addEventListener("submit", createPostClicked);
-  document.querySelector("#form-update-post").addEventListener("submit", updatePostClicked);
-  document.querySelector("#form-delete-post").addEventListener("submit", deletePostClicked);
-  document.querySelector("#form-delete-post .btn-cancel").addEventListener("click", deleteCancelClicked);
+  document.querySelector("#btn-create-artist").addEventListener("click", showAddArtistDialog);
+  document.querySelector("#form-update-artist").addEventListener("submit", updateArtistClicked);
+  document.querySelector("#form-add-artist").addEventListener("submit", addArtistClicked);
+  document.querySelector("#form-delete-artist").addEventListener("submit", deleteArtistClicked);
+  document.querySelector("#form-delete-artist .btn-cancel").addEventListener("click", deleteCancelClicked);
   document.querySelector("#select-sort-by").addEventListener("change", sortByChanged);
   document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
   document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
@@ -24,125 +24,153 @@ function initApp() {
 
 // ============== events ============== //
 
-function showCreatePostDialog() {
-  document.querySelector("#dialog-create-post").showModal(); // show create dialog
+function showAddArtistDialog() {
+  document.querySelector("#dialog-add-artist").showModal(); // show create dialog
 }
 
-async function updatePostsGrid() {
-  posts = await getPosts(); // get posts from rest endpoint and save in variable
-  showPosts(posts); // show all posts (append to the DOM) with posts as argument
+async function updateArtistsGrid() {
+  artists = await getArtists(); // get posts from rest endpoint and save in variable
+  showArtists(artists); // show all posts (append to the DOM) with posts as argument
 }
 
-async function createPostClicked(event) {
+async function addArtistClicked(event) {
   const form = event.target; // or "this"
   // extract the values from inputs from the form
-  const title = form.title.value;
-  const body = form.body.value;
+  const name = form.name.value;
+  const birthdate = form.birthdate.value;
+  const activeSince = form.activeSince.value;
+  const genres = form.genres.value;
+  const labels = form.labels.value;
+  const website = form.website.value;
   const image = form.image.value;
-  const response = await createPost(title, body, image);
+  const shortDescription = form.shortDescription.value;
+
+  const response = await addArtist(name, birthdate, activeSince, genres, labels, website, image, shortDescription);
   if (response.ok) {
-    updatePostsGrid();
+    updateArtistsGrid();
   } // use values to create a new post
   form.reset(); // reset the form (clears inputs)
 }
 
-async function updatePostClicked(event) {
+async function updateArtistClicked(event) {
   const form = event.target; // or "this"
   // extract the values from inputs in the form
-  const title = form.title.value;
-  const body = form.body.value;
+  const name = form.name.value;
+  const birthdate = form.birthdate.value;
+  const activeSince = form.activeSince.value;
+  const genres = form.genres.value;
+  const labels = form.labels.value;
+  const website = form.website.value;
   const image = form.image.value;
+  const shortDescription = form.shortDescription.value;
   // get id of the post to update - saved in data-id
   const id = form.getAttribute("data-id");
-  const response = await updatePost(id, title, body, image);
+  const response = await updateArtist(
+    id,
+    name,
+    birthdate,
+    activeSince,
+    genres,
+    labels,
+    website,
+    image,
+    shortDescription
+  );
   if (response.ok) {
-    updatePostsGrid();
+    updateArtistsGrid();
   } // call updatePost with arguments
 }
 
-async function deletePostClicked(event) {
+async function deleteArtistClicked(event) {
   const id = event.target.getAttribute("data-id"); // event.target is the delete form
-  const response = await deletePost(id);
+  const response = await deleteArtist(id);
   if (response.ok) {
-    updatePostsGrid();
+    updateArtistsGrid();
   } // call deletePost with id
 }
 
 function deleteCancelClicked() {
-  document.querySelector("#dialog-delete-post").close(); // close dialog
+  document.querySelector("#dialog-delete-artist").close(); // close dialog
 }
 
 async function sortByChanged(event) {
   const selectedValue = event.target.value;
 
-  if (selectedValue === "title") {
-    posts.sort(await compareTitle);
-  } else if (selectedValue === "body") {
-    posts.sort(await compareBody);
+  if (selectedValue === "name") {
+    artists.sort(await compareName);
+  } else if (selectedValue === "genre") {
+    artists.sort(await compareGenres);
   }
 
-  showPosts(posts);
+  showArtists(artists);
 }
 
 function inputSearchChanged(event) {
   const value = event.target.value;
-  const postsToShow = searchPosts(value);
-  showPosts(postsToShow);
+  const artistsToShow = searchArtists(value);
+  showArtists(artistsToShow);
 }
 
-function showPosts(listOfPosts) {
-  document.querySelector("#posts").innerHTML = ""; // reset the content of section#posts
+function showArtists(listOfArtists) {
+  document.querySelector("#artists").innerHTML = ""; // reset the content of section#posts
 
-  for (const post of listOfPosts) {
-    showPost(post); // for every post object in listOfPosts, call showPost
+  for (const artist of listOfArtists) {
+    showArtist(artist); // for every post object in listOfPosts, call showPost
   }
 }
 
-function showPost(postObject) {
+function showArtist(artistObject) {
   const html = /*html*/ `
         <article class="grid-item">
-            <img src="${postObject.image}" />
-            <h3>${postObject.title}</h3>
-            <p>${postObject.body}</p>
+            <img src="${artistObject.image}" />
+            <h3>${artistObject.name}</h3>
+            <p>${artistObject.birthdate}</p>
+            <p>${artistObject.genres}</p>
             <div class="btns">
                 <button class="btn-delete">Delete</button>
                 <button class="btn-update">Update</button>
             </div>
         </article>
     `; // html variable to hold generated html in backtick
-  document.querySelector("#posts").insertAdjacentHTML("beforeend", html); // append html to the DOM - section#posts
+  document.querySelector("#artists").insertAdjacentHTML("beforeend", html); // append html to the DOM - section#posts
 
   // add event listeners to .btn-delete and .btn-update
   document
-    .querySelector("#posts article:last-child .btn-delete")
-    .addEventListener("click", () => deleteClicked(postObject));
+    .querySelector("#artists article:last-child .btn-delete")
+    .addEventListener("click", () => deleteClicked(artistObject));
   document
-    .querySelector("#posts article:last-child .btn-update")
-    .addEventListener("click", () => updateClicked(postObject));
+    .querySelector("#artists article:last-child .btn-update")
+    .addEventListener("click", () => updateClicked(artistObject));
 }
 
 // called when delete button is clicked
-function deleteClicked(postObject) {
-  // show title of post you want to delete
-  document.querySelector("#dialog-delete-post-title").textContent = postObject.title;
+function deleteClicked(artistObject) {
+  // show name of post you want to delete
+  document.querySelector("#dialog-delete-artist-title").textContent = artistObject.name;
   // set data-id attribute of post you want to delete (... to use when delete)
-  document.querySelector("#form-delete-post").setAttribute("data-id", postObject.id);
+  document.querySelector("#form-delete-artist").setAttribute("data-id", artistObject.id);
   // show delete dialog
-  document.querySelector("#dialog-delete-post").showModal();
+  document.querySelector("#dialog-delete-artist").showModal();
 }
 
 // called when update button is clicked
-function updateClicked(postObject) {
-  const updateForm = document.querySelector("#form-update-post"); // reference to update form in dialog
-  updateForm.title.value = postObject.title; // set title input in update form from post title
-  updateForm.body.value = postObject.body; // set body input in update form post body
-  updateForm.image.value = postObject.image; // set image input in update form post image
-  updateForm.setAttribute("data-id", postObject.id); // set data-id attribute of post you want to update (... to use when update)
-  document.querySelector("#dialog-update-post").showModal(); // show update modal
+function updateClicked(artistObject) {
+  const updateForm = document.querySelector("#form-update-artist"); // reference to update form in dialog
+  updateForm.name.value = artistObject.name; // set title input in update form from post title
+  updateForm.birthdate.value = artistObject.birthdate; // set body input in update form post body
+  updateForm.activeSince.value = artist.activeSince; // set image input in update form post image
+  updateForm.genres.value = artistObject.genres; // set title input in update form from post title
+  updateForm.labels.value = artistObject.labels; // set title input in update form from post title
+  updateForm.website.value = artistObject.website; // set title input in update form from post title
+  updateForm.image.value = artistObject.image; // set title input in update form from post title
+  updateForm.shortDescription.value = artistObject.shortDescription; // set title input in update form from post title
+
+  updateForm.setAttribute("data-id", artistObject.id); // set data-id attribute of post you want to update (... to use when update)
+  document.querySelector("#dialog-update-artist").showModal(); // show update modal
 }
 
-function searchPosts(searchValue) {
+function searchArtists(searchValue) {
   searchValue = searchValue.toLowerCase();
 
-  return posts.filter((post) => post.title.toLowerCase().includes(searchValue));
+  return artists.filter((artist) => artist.title.toLowerCase().includes(searchValue));
 }

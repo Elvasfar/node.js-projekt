@@ -1,9 +1,9 @@
-function compareTitle(post1, post2) {
-  return post1.title.localeCompare(post2.title);
+function compareName(artist1, artist2) {
+  return artist1.name.localeCompare(artist2.name);
 }
 
-function compareBody(post1, post2) {
-  return post1.body.localeCompare(post2.body);
+function compareGenres(artist1, artist2) {
+  return artist1.genres.localeCompare(artist2.genres);
 }
 
 // convert object of objects til an array of objects
@@ -19,4 +19,4 @@ function prepareData(dataObject) {
   return array; // return array back to "the caller"
 }
 
-export { compareBody, compareTitle, prepareData };
+export { compareName, compareGenres, prepareData };

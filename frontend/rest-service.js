@@ -1,20 +1,21 @@
 // ============== posts ============== //
-const endpoint = "localhost:4000";
+const endpoint = "http://localhost:4000";
+const headers = { "Content-Type": "application/json" };
 
 // Get all posts - HTTP Method: GET
 async function getArtists() {
-  const response = await fetch(`${endpoint}/artists.json`); // fetch request, (GET)
-  const data = await response.json(); // parse JSON to JavaScript
-  const artists = prepareData(data); // convert object of object to array of objects
+  const response = await fetch(`${endpoint}/artists`); // fetch request, (GET)
+  const artists = await response.json(); // parse JSON to JavaScript; // convert object of object to array of objects
   return artists; // return posts
 }
 
 // Create a new post - HTTP Method: POST
-async function createArtist(name, birthdate, activeSince) {
-  const newArtist = { title, body, image }; // create new post object
+async function addArtist(name, birthdate, activeSince, genres, labels, website, image, shortDescription) {
+  const newArtist = { name, birthdate, activeSince, genres, labels, website, image, shortDescription }; // create new post object
   const json = JSON.stringify(newArtist); // convert the JS object to JSON string
   // POST fetch request with JSON in the body
-  const response = await fetch(`${endpoint}/artist.json`, {
+  const response = await fetch(`${endpoint}/artists`, {
+    headers: headers,
     method: "POST",
     body: json,
   });
@@ -22,19 +23,19 @@ async function createArtist(name, birthdate, activeSince) {
 }
 
 // Update an existing post - HTTP Method: DELETE
-async function deletePost(id) {
-  const response = await fetch(`${endpoint}/posts/${id}.json`, {
+async function deleteArtist(id) {
+  const response = await fetch(`${endpoint}/artists/${id}`, {
     method: "DELETE",
   });
   return response;
 }
 
 // Delete an existing post - HTTP Method: PUT
-async function updatePost(id, title, body, image) {
-  const postToUpdate = { title, body, image }; // post update to update
-  const json = JSON.stringify(postToUpdate); // convert the JS object to JSON string
+async function updateArtist(id, name, birthdate, activeSince, genres, labels, website, image, shortDescription) {
+  const artistToUpdate = { name, birthdate, activeSince, genres, labels, website, image, shortDescription }; // post update to update
+  const json = JSON.stringify(artistToUpdate); // convert the JS object to JSON string
   // PUT fetch request with JSON in the body. Calls the specific element in resource
-  const response = await fetch(`${endpoint}/posts/${id}.json`, {
+  const response = await fetch(`${endpoint}/artists/${id}`, {
     method: "PUT",
     body: json,
   });
@@ -55,4 +56,4 @@ function prepareData(dataObject) {
   return array; // return array back to "the caller"
 }
 
-export { getArtists, createPost, updatePost, deletePost };
+export { getArtists, addArtist, updateArtist, deleteArtist };
