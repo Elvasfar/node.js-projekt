@@ -25,6 +25,7 @@ async function addArtist(name, birthdate, activeSince, genres, labels, website, 
 // Update an existing post - HTTP Method: DELETE
 async function deleteArtist(id) {
   const response = await fetch(`${endpoint}/artists/${id}`, {
+    headers: headers,
     method: "DELETE",
   });
   return response;
@@ -36,6 +37,7 @@ async function updateArtist(id, name, birthdate, activeSince, genres, labels, we
   const json = JSON.stringify(artistToUpdate); // convert the JS object to JSON string
   // PUT fetch request with JSON in the body. Calls the specific element in resource
   const response = await fetch(`${endpoint}/artists/${id}`, {
+    headers: headers,
     method: "PUT",
     body: json,
   });
