@@ -12,7 +12,7 @@ app.listen(4000, () => {
 });
 
 let artists = []; // Initialize an empty array to store artists
-
+let favorites = [];
 // Read and parse the JSON data from the file
 fs.readFile("data/artists.json", "utf-8").then((data) => {
   artists = JSON.parse(data).artists; // Parse the JSON data and store it in the artists array
@@ -40,7 +40,7 @@ app.get("/artists/:artistId", (req, res) => {
   if (artistById) {
     res.json(artistById);
   } else {
-    res.status(404).json({ error: "Artist not found" }); // Respond with a 404 status if todo is not found
+    res.status(404).json({ error: "Artist not found" }); // Respond with a 404 status if artist is not found
   }
 });
 
@@ -59,4 +59,20 @@ app.put("/artists/:artistId", (req, res) => {
   } else {
     res.status(404).json({ error: "Artist not found" });
   }
+});
+
+app.delete("/artists/:artistId", (req, res) => {
+  const deleteArtistId = parseInt(req.params.artistId);
+  const artistIndex = artists.findIndex((artist) => artist.id === deleteArtistId);
+  if (artistIndex !== -1) {
+    // Check if the artist was found
+    artists.splice(artistIndex, 1); // Remove the artist from the array
+    res.json(artists);
+  } else {
+    res.status(404).json({ error: "Artist not found" });
+  }
+});
+
+app.get("/artists/favorites", (req, res) => {
+  res.json(favorites);
 });

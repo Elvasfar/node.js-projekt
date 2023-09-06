@@ -1,17 +1,26 @@
 "use strict";
 
 import { getArtists, addArtist, updateArtist, deleteArtist } from "./rest-service.js";
-
-import { compareName, compareGenres, prepareData } from "./helpers.js";
+import { compareName, compareGenres, compareBirthdate, compareAge, prepareData } from "./helpers.js";
 
 let artists;
+let filteredArtists;
+const favorites = [];
 
 window.addEventListener("load", initApp);
 
-function initApp() {
-  updateArtistsGrid(); // update the grid of posts: get and show all posts
+async function initApp() {
+  await updateArtistsGrid();
+  setupEventListeners();
+}
 
-  // event listener
+async function updateArtistsGrid() {
+  artists = await getArtists();
+  filteredArtists = [...artists]; // Initialize filteredArtists with all artists
+  renderArtists();
+}
+
+function setupEventListeners() {
   document.querySelector("#btn-create-artist").addEventListener("click", showAddArtistDialog);
   document.querySelector("#form-update-artist").addEventListener("submit", updateArtistClicked);
   document.querySelector("#form-add-artist").addEventListener("submit", addArtistClicked);
@@ -20,17 +29,30 @@ function initApp() {
   document.querySelector("#select-sort-by").addEventListener("change", sortByChanged);
   document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
   document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
+  document.querySelector("#filter-by").addEventListener("change", filterByChanged);
+  document.querySelector("#btn-favorites").addEventListener("click", redirectToFavorites);
+  document.querySelector("#artists").addEventListener("click", (event) => {
+    const artistElement = event.target.closest(".grid-item");
+    if (
+      artistElement &&
+      !event.target.classList.contains("btn-delete") &&
+      !event.target.classList.contains("btn-update") &&
+      !event.target.classList.contains("favorite-btn")
+    ) {
+      const artistIndex = [...artistElement.parentElement.children].indexOf(artistElement);
+      const clickedArtist = filteredArtists[artistIndex];
+      artistClicked(clickedArtist);
+    }
+  });
+  const closeButton = document.querySelector("#close-button");
+  closeButton.addEventListener("click", function () {
+    const dialog = document.querySelector("#artistDetailedView");
+    dialog.close();
+  });
 }
-
-// ============== events ============== //
 
 function showAddArtistDialog() {
-  document.querySelector("#dialog-add-artist").showModal(); // show create dialog
-}
-
-async function updateArtistsGrid() {
-  artists = await getArtists(); // get posts from rest endpoint and save in variable
-  showArtists(artists); // show all posts (append to the DOM) with posts as argument
+  document.querySelector("#dialog-add-artist").showModal();
 }
 
 async function addArtistClicked(event) {
@@ -39,11 +61,11 @@ async function addArtistClicked(event) {
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const genres = form.genres.value;
+  const genres = form.genre.value;
   const labels = form.labels.value;
   const website = form.website.value;
   const image = form.image.value;
-  const shortDescription = form.shortDescription.value;
+  const shortDescription = form.description.value;
 
   const response = await addArtist(name, birthdate, activeSince, genres, labels, website, image, shortDescription);
   if (response.ok) {
@@ -55,14 +77,14 @@ async function addArtistClicked(event) {
 async function updateArtistClicked(event) {
   const form = event.target; // or "this"
   // extract the values from inputs in the form
-  const name = form.name.value;
-  const birthdate = form.birthdate.value;
-  const activeSince = form.activeSince.value;
-  const genres = form.genres.value;
-  const labels = form.labels.value;
-  const website = form.website.value;
-  const image = form.image.value;
-  const shortDescription = form.shortDescription.value;
+  const name = form.elements["name-update"].value;
+  const birthdate = form.elements["birthdate-update"].value;
+  const activeSince = form.elements["activeSince-update"].value;
+  const genres = form.elements["genre-update"].value;
+  const labels = form.elements["labels-update"].value;
+  const website = form.elements["website-update"].value;
+  const image = form.elements["image-update"].value;
+  const shortDescription = form.elements["description-update"].value;
   // get id of the post to update - saved in data-id
   const id = form.getAttribute("data-id");
   const response = await updateArtist(
@@ -90,87 +112,210 @@ async function deleteArtistClicked(event) {
 }
 
 function deleteCancelClicked() {
-  document.querySelector("#dialog-delete-artist").close(); // close dialog
+  document.querySelector("#dialog-delete-artist").close();
 }
 
 async function sortByChanged(event) {
   const selectedValue = event.target.value;
 
   if (selectedValue === "name") {
-    artists.sort(await compareName);
+    filteredArtists.sort(compareName);
   } else if (selectedValue === "genre") {
-    artists.sort(await compareGenres);
+    filteredArtists.sort(compareGenres);
+  } else if (selectedValue === "birthdate") {
+    filteredArtists.sort(compareBirthdate);
   }
 
-  showArtists(artists);
+  renderArtists();
+}
+
+function filterByChanged(event) {
+  const selectedValue = event.target.value;
+
+  if (selectedValue === "rockartists") {
+    filteredArtists = artists.filter((artist) => artist.genres.includes("Rock"));
+  } else if (selectedValue === "countryartists") {
+    filteredArtists = artists.filter((artist) => artist.genres.includes("Country"));
+  } else if (selectedValue === "popartists") {
+    filteredArtists = artists.filter((artist) => artist.genres.includes("Pop"));
+  } else if (selectedValue === "bluesartists") {
+    filteredArtists = artists.filter((artist) => artist.genres.includes("Blues"));
+  } else if (selectedValue === "youngartists") {
+    filteredArtists = artists.filter((artist) => compareAge(artist) < 73);
+  } else if (selectedValue === "oldartists") {
+    filteredArtists = artists.filter((artist) => compareAge(artist) >= 73);
+  } else if (selectedValue === "selectfilter") {
+    filteredArtists = [...artists]; // Reset to all artists
+  }
+
+  renderArtists();
 }
 
 function inputSearchChanged(event) {
   const value = event.target.value;
   const artistsToShow = searchArtists(value);
-  showArtists(artistsToShow);
+  filteredArtists = artistsToShow;
+  renderArtists();
 }
 
-function showArtists(listOfArtists) {
-  document.querySelector("#artists").innerHTML = ""; // reset the content of section#posts
+function searchArtists(searchValue) {
+  searchValue = searchValue.toLowerCase();
+  return artists.filter((artist) => artist.name.toLowerCase().includes(searchValue));
+}
 
-  for (const artist of listOfArtists) {
-    showArtist(artist); // for every post object in listOfPosts, call showPost
+function renderArtists() {
+  const artistsContainer = document.querySelector("#artists");
+  artistsContainer.innerHTML = "";
+
+  for (const artist of filteredArtists) {
+    showArtist(artist, artistsContainer);
   }
 }
 
-function showArtist(artistObject) {
+function showArtist(artist, container) {
   const html = /*html*/ `
-        <article class="grid-item">
-            <img src="${artistObject.image}" />
-            <h3>${artistObject.name}</h3>
-            <p>${artistObject.birthdate}</p>
-            <p>${artistObject.genres}</p>
-            <div class="btns">
-                <button class="btn-delete">Delete</button>
-                <button class="btn-update">Update</button>
-            </div>
-        </article>
-    `; // html variable to hold generated html in backtick
-  document.querySelector("#artists").insertAdjacentHTML("beforeend", html); // append html to the DOM - section#posts
+    <article class="grid-item">
+      <img src="${artist.image}" />
+      <h3>${artist.name}</h3>
+      <p>${artist.birthdate}</p>
+      <p>${artist.genres}</p>
+      <div class="btns">
+        <button class="btn-delete">Delete</button>
+        <button class="btn-update">Update</button>
+        <span class="favorite-btn">&#9825;</span> <!-- Heart symbol -->
+      </div>
+    </article>
+  `;
 
-  // add event listeners to .btn-delete and .btn-update
-  document
-    .querySelector("#artists article:last-child .btn-delete")
-    .addEventListener("click", () => deleteClicked(artistObject));
-  document
-    .querySelector("#artists article:last-child .btn-update")
-    .addEventListener("click", () => updateClicked(artistObject));
+  container.insertAdjacentHTML("beforeend", html);
+
+  // Get the newly added grid-item
+  const gridItem = container.lastElementChild;
+
+  // Attach event listeners to delete and update buttons for this artist
+  const deleteButton = gridItem.querySelector(".btn-delete");
+  const updateButton = gridItem.querySelector(".btn-update");
+  const favoriteButton = gridItem.querySelector(".favorite-btn"); // Heart symbol
+
+  deleteButton.addEventListener("click", () => deleteClicked(artist));
+  updateButton.addEventListener("click", () => updateClicked(artist));
+
+  // Initialize the favorite status
+  let isFavorite = false;
+
+  // Add event listener to toggle favorite status and add/remove from the "favorites" array
+  favoriteButton.addEventListener("click", () => {
+    if (isFavorite) {
+      // Remove from favorites
+      const index = favorites.indexOf(artist);
+      if (index !== -1) {
+        favorites.splice(index, 1);
+      }
+      favoriteButton.style.color = "black"; // Change the heart to empty
+    } else {
+      // Add to favorites
+      favorites.push(artist);
+      favoriteButton.style.color = "red"; // Change the heart to red
+      console.log(favorites);
+    }
+    isFavorite = !isFavorite; // Toggle favorite status
+  });
 }
 
 // called when delete button is clicked
-function deleteClicked(artistObject) {
+function deleteClicked(artist) {
   // show name of post you want to delete
-  document.querySelector("#dialog-delete-artist-title").textContent = artistObject.name;
+  document.querySelector("#dialog-delete-artist-name").textContent = artist.name;
   // set data-id attribute of post you want to delete (... to use when delete)
-  document.querySelector("#form-delete-artist").setAttribute("data-id", artistObject.id);
+  document.querySelector("#form-delete-artist").setAttribute("data-id", artist.id);
   // show delete dialog
   document.querySelector("#dialog-delete-artist").showModal();
 }
 
 // called when update button is clicked
-function updateClicked(artistObject) {
+function updateClicked(artist) {
   const updateForm = document.querySelector("#form-update-artist"); // reference to update form in dialog
-  updateForm.name.value = artistObject.name; // set title input in update form from post title
-  updateForm.birthdate.value = artistObject.birthdate; // set body input in update form post body
-  updateForm.activeSince.value = artist.activeSince; // set image input in update form post image
-  updateForm.genres.value = artistObject.genres; // set title input in update form from post title
-  updateForm.labels.value = artistObject.labels; // set title input in update form from post title
-  updateForm.website.value = artistObject.website; // set title input in update form from post title
-  updateForm.image.value = artistObject.image; // set title input in update form from post title
-  updateForm.shortDescription.value = artistObject.shortDescription; // set title input in update form from post title
+  updateForm.elements["name-update"].value = artist.name || "";
+  updateForm.elements["birthdate-update"].value = artist.birthdate || "";
+  updateForm.elements["activeSince-update"].value = artist.activeSince || "";
+  updateForm.elements["genre-update"].value = artist.genres || "";
+  updateForm.elements["labels-update"].value = artist.labels || "";
+  updateForm.elements["website-update"].value = artist.website || "";
+  updateForm.elements["image-update"].value = artist.image || "";
+  updateForm.elements["description-update"].value = artist.shortDescription || "";
 
-  updateForm.setAttribute("data-id", artistObject.id); // set data-id attribute of post you want to update (... to use when update)
+  updateForm.setAttribute("data-id", artist.id || "");
   document.querySelector("#dialog-update-artist").showModal(); // show update modal
 }
 
-function searchArtists(searchValue) {
-  searchValue = searchValue.toLowerCase();
+function artistClicked(artist) {
+  var dialog = document.querySelector("#artistDetailedView");
+  document.querySelector("#dialog-header").textContent = artist.name;
+  document.querySelector("#artist-image").src = artist.image;
 
-  return artists.filter((artist) => artist.title.toLowerCase().includes(searchValue));
+  // Render HTML elements using innerHTML
+  document.querySelector("#artist-birthdate").innerHTML = "<strong>Birthdate: </strong>" + artist.birthdate;
+
+  // Check if artist.activeSince is defined before converting to string
+  if (artist.activeSince !== undefined && artist.activeSince !== null) {
+    document.querySelector("#artist-activeSince").innerHTML =
+      "<strong>Active since: </strong>" + artist.activeSince.toString();
+  } else {
+    document.querySelector("#artist-activeSince").textContent = ""; // Set it to an empty string if not defined
+  }
+
+  document.querySelector("#artist-genres").innerHTML = "<strong>Genres: </strong>" + artist.genres;
+  document.querySelector("#artist-labels").innerHTML = "<strong>Labels: </strong>" + artist.labels;
+  document.querySelector("#artist-website").innerHTML = "<strong>Website: </strong>" + artist.website;
+  document.querySelector("#artist-shortDescription").innerHTML =
+    "<strong>Description: </strong>" + artist.shortDescription;
+
+  if (!dialog.open) {
+    dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+}
+
+function redirectToFavorites() {
+  // Clear the artists container
+  const artistsContainer = document.querySelector("#artists");
+  artistsContainer.innerHTML = "";
+
+  // Render the favorites
+  showFavoriteArtists(favorites, artistsContainer);
+
+  // You can also update the URL to reflect the change
+  window.history.pushState({ page: "favorites" }, "Favorites", "/endpoint/artists/favorites");
+}
+
+function showFavoriteArtists(favoriteArtists, container) {
+  const favoritesContainer = document.querySelector("#favorites");
+  favoritesContainer.innerHTML = "";
+
+  for (const artist of favoriteArtists) {
+    const html = /*html*/ `
+    <article class="grid-item">
+      <img src="${artist.image}" />
+      <h3>${artist.name}</h3>
+      <p>${artist.birthdate}</p>
+      <p>${artist.genres}</p>
+      <div class="btns">
+        <button class="btn-delete">Delete</button>
+        <button class="btn-update">Update</button>
+      </div>
+    </article>
+  `;
+
+    container.insertAdjacentHTML("beforeend", html);
+
+    // Get the newly added grid-item
+    const gridItem = container.lastElementChild;
+
+    // Attach event listeners to delete and update buttons for this artist
+    const deleteButton = gridItem.querySelector(".btn-delete");
+    const updateButton = gridItem.querySelector(".btn-update");
+
+    deleteButton.addEventListener("click", () => deleteClicked(artist));
+    updateButton.addEventListener("click", () => updateClicked(artist));
+  }
 }

@@ -10,6 +10,7 @@
     <header>
       <h1>Artist App with node.js</h1>
       <button id="btn-create-artist">Create New Artist</button>
+      <button id="btn-favorites">Favorites</button>
     </header>
 
     <main>
@@ -17,19 +18,52 @@
         <label for="select-sort-by"
           >Sort by:
           <select id="select-sort-by">
-            <option value="" selected>Not selected</option>
             <option value="name">Name</option>
-            <option value="activeSince">Active Since</option>
+            <option value="birthdate">Birthdate</option>
             <option value="genre">Genre</option>
           </select>
         </label>
+
+        <!-- Filter artists-->
+        <label for="filter-by"
+          >Filter:
+          <select name="filtrering" id="filter-by">
+            <option value="selectfilter">Choose filter</option>
+            <option value="rockartists">Rockartists</option>
+            <option value="countryartists">Countryartists</option>
+            <option value="popartists">Popartists</option>
+            <option value="bluesartists">Bluesartists</option>
+            <option value="youngartists">Artists born after 1950</option>
+            <option value="oldartists">Artists born prior to 1950</option>
+          </select>
+        </label>
+
         <div>
           <label for="input-search">Search:</label>
           <input type="search" id="input-search" placeholder="Search by name" />
         </div>
       </section>
       <section id="artists" class="grid-container"></section>
+      <section id="favorites" class="grid-container"></section>
     </main>
+    <!-- artist detailed view-->
+    <article id="dialog">
+      <dialog id="artistDetailedView">
+        <h2 id="dialog-header"></h2>
+        <img src="" id="artist-image" alt="" />
+        <p id="artist-birthdate"></p>
+        <p id="artist-activeSince"></p>
+        <p id="artist-genres"></p>
+        <p id="artist-labels"></p>
+        <p id="artist-website"></p>
+        <p id="artist-shortDescription"></p>
+        <form method="dialog">
+          <div id="close-btn" class="buttons">
+            <button id="close-button">Close</button>
+          </div>
+        </form>
+      </dialog>
+    </article>
 
     <!-- dialog - add new artist -->
     <dialog id="dialog-add-artist">
@@ -60,7 +94,7 @@
       <h2>Update Artist</h2>
       <form id="form-update-artist" method="dialog">
         <label for="name-update">Name:</label>
-        <input type="text" id="name-update" name="name-update" placeholder="Type the artists name" />
+        <input type="text" id="name-update" name="name-update" placeholder="Type the artist's name" />
         <label for="birthdate-update">Birthdate:</label>
         <input
           type="text"
@@ -71,11 +105,11 @@
         <label for="activeSince-update">Active Since:</label>
         <input type="number" id="activeSince-update" name="activeSince-update" placeholder="Type a year" />
         <label for="genres-update">Genres:</label>
-        <input type="text" id="genre-update" name="genre-update" placeholder="Type the artists genres" />
+        <input type="text" id="genre-update" name="genre-update" placeholder="Type the artist's genres" />
         <label for="labels-update">Labels:</label>
-        <input type="text" id="labels-update" name="labels-update" placeholder="Type the artists labels" />
+        <input type="text" id="labels-update" name="labels-update" placeholder="Type the artist's labels" />
         <label for="website-update">Website:</label>
-        <input type="text" id="website-update" name="website-update" placeholder="Paste the artists website" />
+        <input type="text" id="website-update" name="website-update" placeholder="Paste the artist's website" />
         <label for="image-update">Image:</label>
         <input type="text" id="image-update" name="image-update" placeholder="Paste an image URL" />
         <label for="description-update">Description:</label>
@@ -83,7 +117,7 @@
           type="text"
           id="description-update"
           name="description-update"
-          placeholder="Type a short desription of the artist"
+          placeholder="Type a short description of the artist"
         />
         <button>Update Artist</button>
       </form>
