@@ -174,6 +174,8 @@ function renderArtists() {
 }
 
 function showArtist(artist, container) {
+  const isFavorite = favorites.includes(artist);
+
   const html = /*html*/ `
     <article class="grid-item">
       <img src="${artist.image}" />
@@ -183,7 +185,7 @@ function showArtist(artist, container) {
       <div class="btns">
         <button class="btn-delete">Delete</button>
         <button class="btn-update">Update</button>
-        <span class="favorite-btn">&#9825;</span> <!-- Heart symbol -->
+        <span class="favorite-btn" style="color: ${isFavorite ? "red" : "black"}">&#9825;</span> <!-- Heart symbol -->
       </div>
     </article>
   `;
@@ -201,9 +203,6 @@ function showArtist(artist, container) {
   deleteButton.addEventListener("click", () => deleteClicked(artist));
   updateButton.addEventListener("click", () => updateClicked(artist));
 
-  // Initialize the favorite status
-  let isFavorite = false;
-
   // Add event listener to toggle favorite status and add/remove from the "favorites" array
   favoriteButton.addEventListener("click", () => {
     if (isFavorite) {
@@ -219,7 +218,6 @@ function showArtist(artist, container) {
       favoriteButton.style.color = "red"; // Change the heart to red
       console.log(favorites);
     }
-    isFavorite = !isFavorite; // Toggle favorite status
   });
 }
 
@@ -290,12 +288,13 @@ function redirectToFavorites() {
 }
 
 function redirectToHome() {
-  const artistsContainer = document.querySelector("#artists");
-  artistsContainer.innerHTML = "";
+  const favoritesContainer = document.querySelector("#favorites");
+  favoritesContainer.innerHTML = ""; // Clear the favorites section, but keep the selections
 
-  // Pass the artists array and the container to showArtist
-  artists.forEach((artist) => showArtist(artist, artistsContainer));
+  // Render the artists
+  renderArtists();
 
+  // Update the URL
   window.history.pushState({ page: "home" }, "Home", "/endpoint/artists");
 }
 
