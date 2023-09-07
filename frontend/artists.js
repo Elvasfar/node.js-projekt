@@ -205,14 +205,14 @@ function showArtist(artist, container) {
 
   // Add event listener to toggle favorite status and add/remove from the "favorites" array
   favoriteButton.addEventListener("click", () => {
-    if (isFavorite) {
+    if (isFavorite || favoriteButton.style.color === "red") {
       // Remove from favorites
       const index = favorites.indexOf(artist);
       if (index !== -1) {
         favorites.splice(index, 1);
       }
       favoriteButton.style.color = "black"; // Change the heart to empty
-    } else {
+    } else if (!isFavorite || favoriteButton.style.color === "black") {
       // Add to favorites
       favorites.push(artist);
       favoriteButton.style.color = "red"; // Change the heart to red
