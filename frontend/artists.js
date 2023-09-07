@@ -1,7 +1,7 @@
 "use strict";
 
 import { getArtists, addArtist, updateArtist, deleteArtist } from "./rest-service.js";
-import { compareName, compareGenres, compareBirthdate, compareAge, prepareData } from "./helpers.js";
+import { compareName, compareGenres, compareBirthdate, compareAge } from "./helpers.js";
 
 let artists;
 let filteredArtists;
@@ -31,6 +31,7 @@ function setupEventListeners() {
   document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
   document.querySelector("#filter-by").addEventListener("change", filterByChanged);
   document.querySelector("#btn-favorites").addEventListener("click", redirectToFavorites);
+  document.querySelector("#btn-home").addEventListener("click", redirectToHome);
   document.querySelector("#artists").addEventListener("click", (event) => {
     const artistElement = event.target.closest(".grid-item");
     if (
@@ -70,7 +71,7 @@ async function addArtistClicked(event) {
   const response = await addArtist(name, birthdate, activeSince, genres, labels, website, image, shortDescription);
   if (response.ok) {
     updateArtistsGrid();
-  } // use values to create a new post
+  } // use values to create a new artist
   form.reset(); // reset the form (clears inputs)
 }
 
@@ -85,7 +86,7 @@ async function updateArtistClicked(event) {
   const website = form.elements["website-update"].value;
   const image = form.elements["image-update"].value;
   const shortDescription = form.elements["description-update"].value;
-  // get id of the post to update - saved in data-id
+  // get id of the artist to update - saved in data-id
   const id = form.getAttribute("data-id");
   const response = await updateArtist(
     id,
@@ -100,7 +101,7 @@ async function updateArtistClicked(event) {
   );
   if (response.ok) {
     updateArtistsGrid();
-  } // call updatePost with arguments
+  } // call updateArtists with arguments
 }
 
 async function deleteArtistClicked(event) {
@@ -108,7 +109,7 @@ async function deleteArtistClicked(event) {
   const response = await deleteArtist(id);
   if (response.ok) {
     updateArtistsGrid();
-  } // call deletePost with id
+  } // call deleteArtist with id
 }
 
 function deleteCancelClicked() {
@@ -224,9 +225,9 @@ function showArtist(artist, container) {
 
 // called when delete button is clicked
 function deleteClicked(artist) {
-  // show name of post you want to delete
+  // show name of artist you want to delete
   document.querySelector("#dialog-delete-artist-name").textContent = artist.name;
-  // set data-id attribute of post you want to delete (... to use when delete)
+  // set data-id attribute of artist you want to delete (... to use when delete)
   document.querySelector("#form-delete-artist").setAttribute("data-id", artist.id);
   // show delete dialog
   document.querySelector("#dialog-delete-artist").showModal();
@@ -286,6 +287,16 @@ function redirectToFavorites() {
 
   // You can also update the URL to reflect the change
   window.history.pushState({ page: "favorites" }, "Favorites", "/endpoint/artists/favorites");
+}
+
+function redirectToHome() {
+  const artistsContainer = document.querySelector("#artists");
+  artistsContainer.innerHTML = "";
+
+  // Pass the artists array and the container to showArtist
+  artists.forEach((artist) => showArtist(artist, artistsContainer));
+
+  window.history.pushState({ page: "home" }, "Home", "/endpoint/artists");
 }
 
 function showFavoriteArtists(favoriteArtists, container) {

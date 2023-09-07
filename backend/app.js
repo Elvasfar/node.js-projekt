@@ -30,12 +30,12 @@ app.post("/artists", (req, res) => {
   const artist = req.body; // req.body is already parsed as JSON
   artist.id = new Date().getTime();
   artists.push(artist);
-  res.status(201).json(artist); // Respond with the added todo and status 201 Created
+  res.status(201).json(artist); // Respond with the added artist and status 201 Created
 });
 
 app.get("/artists/:artistId", (req, res) => {
   const artistId = parseInt(req.params.artistId); // Parse the ID from the URL parameter
-  const artistById = artists.find((artist) => artist.id === artistId); // Use a function to match the todo by its ID
+  const artistById = artists.find((artist) => artist.id === artistId); // Use a function to match the artist by its ID
   console.log(artistById);
   if (artistById) {
     res.json(artistById);
@@ -53,7 +53,7 @@ app.put("/artists/:artistId", (req, res) => {
   const artistIndex = artists.findIndex((artist) => artist.id === updateArtistId);
 
   if (artistIndex !== -1) {
-    // Check if the todo was found
+    // Check if the artist was found
     artists[artistIndex] = { ...artists[artistIndex], ...updatedArtist }; // Update properties
     res.json(artists);
   } else {
